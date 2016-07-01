@@ -10,23 +10,25 @@ CREATE TABLE Conference(
 );
 CREATE TABLE Venue(
     id INTEGER PRIMARY KEY,
-    name TEXT,
+    name TEXT UNIQUE,
     city TEXT,
     country TEXT,
     lat NUMERIC(7,5),
-    lon NUMERIC(8,5)
+    lon NUMERIC(8,5),
+    UNiQUE(lat, lon)
 );
 
 CREATE TABLE PaperSubmission(
   id INTEGER PRIMARY KEY,
   conference TEXT,
   year INTEGER,
-  title TEXT,
-  isbn TEXT UNIQUE,
+  title TEXT UNIQUE,
+  isbn TEXT,
   page INTEGER,
   venue_id INTEGER,
   FOREIGN KEY(venue_id) REFERENCES Venue(id),
-  FOREiGN KEY(conference) REFERENCES Conference(name)
+  FOREiGN KEY(conference) REFERENCES Conference(name),
+  UNIQUE( isbn, page)
 );
 
 INSERT INTO Conference(name, description) VALUES ('SIGMOD', 'The annual ACM SIGMOD/PODS conference is a leading international forum for database researchers, practitioners, developers, and users to explore cutting-edge ideas and results, and to exchange techniques, tools, and experiences');
